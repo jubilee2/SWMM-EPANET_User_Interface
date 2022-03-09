@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/swmm_interface" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>
