@@ -6,7 +6,7 @@
 name=Swmm Interface
 qgisMinimumVersion=3.16
 description=User interfaces for EPA SWMM
-version=0.1
+version=0.2
 author=Jubilee Tan
 email=jubilee2@gmail.com
 
