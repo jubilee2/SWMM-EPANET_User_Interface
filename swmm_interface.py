@@ -62,21 +62,249 @@ class SwmmInterface(SwmmInterfaceBase):
 
         # Declare instance attributes
         self.menu = self.tr(u'&Swmm Interface')
+
+        # toolbar
         swmm_interface_tool_bar = self.iface.addToolBar(u'Swmm Interface')
         swmm_interface_tool_bar.setObjectName(u'Swmm Interface')
         self.toolbars.append(swmm_interface_tool_bar)
         self.toolbar_dict[''] = swmm_interface_tool_bar
         self.toolbar_dict['swmm_interface'] = swmm_interface_tool_bar
 
+        swmm_interface_tool_bar_toolbar = self.iface.addToolBar(u'Swmm Interface toolbar')
+        swmm_interface_tool_bar_toolbar.setObjectName(u'Swmm Interface Toolbar')
+        self.toolbars.append(swmm_interface_tool_bar_toolbar)
+        self.toolbar_dict['swmm_interface_toolbar'] = swmm_interface_tool_bar_toolbar
+
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
-        icon_path = ':/plugins/swmm_interface/icon.png'
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Link photo to point'),
-            callback=self.run,
-            parent=self.iface.mainWindow())
+        # toolBar_Standard
+        # <addaction name="actionStdNewProject"/>
+        # <addaction name="actionStdOpenProj"/>
+        # <addaction name="actionStdSave"/>
+        # <addaction name="actionStdPrint"/>
+        # <addaction name="separator"/>
+        # <addaction name="actionStdRun_Simulation"/>
+        # <addaction name="separator"/>
+        # <addaction name="actionProjStatus"/>
+        # <addaction name="actionProjPlotProfile"/>
+        # <addaction name="actionProjPlotTimeseries"/>
+        # <addaction name="actionProjPlotScatter"/>
+        # <addaction name="actionProjTableTimeseries"/>
+        # <addaction name="actionProjTableStatistics"/>
+
+        toolBar_Standard = [
+            {
+                'icon_path': ':/icons/std_project_new.png',
+                'text': self.tr(u'New'),
+                'status_tip': self.tr(u'Start a new project'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/std_project_open.png',
+                'text': self.tr(u'Open...'),
+                'status_tip': self.tr(u'Open existing project'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/std_project_save.png',
+                'text': self.tr(u'Save'),
+                'status_tip': self.tr(u'Save project'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/std_project_printwindow.png',
+                'text': self.tr(u'Print'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': 'separator',
+                'text': 'separator',
+                'callback': self.run,
+                'add_to_toolbar_separator': True
+            },
+            {
+                'icon_path': ':/icons/std_project_runswmm.png',
+                'text': self.tr(u'Run Simulation'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': 'separator',
+                'text': 'separator',
+                'callback': self.run,
+                'add_to_toolbar_separator': True
+            },
+            {
+                'icon_path': ':/icons/std_project_statusreport.png',
+                'text': self.tr(u'Proj Status'),
+                'status_tip': self.tr(u'Project status report'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/std_project_profileplot.png',
+                'text': self.tr(u'Proj Plot Profile'),
+                'status_tip': self.tr(u'Plot profile'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/std_project_tsplot.png',
+                'text': self.tr(u'Proj Plot Timeseries'),
+                'status_tip': self.tr(u'Plot time series'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/std_project_scatterplot.png',
+                'text': self.tr(u'Proj Plot Scatter'),
+                'status_tip': self.tr(u'Scatter plot'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/std_project_tstable.png',
+                'text': self.tr(u'Proj Table Timeseries'),
+                'status_tip': self.tr(u'Create time series table'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/std_project_statisticreport.png',
+                'text': self.tr(u'Proj Table Statistics'),
+                'status_tip': self.tr(u'Create statistic report'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            }
+        ]
+        for i in toolBar_Standard:
+            self.add_action(**i)
+
+        # toolBar_toolBar
+        # <addaction name="actionObjAddGage"/>
+        # <addaction name="actionObjAddSub"/>
+        # <addaction name="actionObjAddJunc"/>
+        # <addaction name="actionObjAddOutfall"/>
+        # <addaction name="actionObjAddDivider"/>
+        # <addaction name="actionObjAddStorage"/>
+        # <addaction name="actionObjAddTank"/>
+        # <addaction name="actionObjAddConduit"/>
+        # <addaction name="actionObjAddPump"/>
+        # <addaction name="actionObjAddOrifice"/>
+        # <addaction name="actionObjAddWeir"/>
+        # <addaction name="actionObjAddOutlet"/>
+        # <addaction name="actionObjAddValve"/>
+        # <addaction name="actionObjAddLabel"/>
+
+        toolBar_toolbar = [
+            {
+                'icon_path': ':/icons/obj_gage.png',
+                'text': self.tr(u'Add Gage'),
+                'status_tip': self.tr(u'Add a rain gage'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/obj_subcatchment.png',
+                'text': self.tr(u'Obj Add Sub'),
+                'status_tip': self.tr(u'Add a subcatchment'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/obj_node_junction.png',
+                'text': self.tr(u'Obj Add Junc'),
+                'status_tip': self.tr(u'Add a junction node'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/obj_node_outfall.png',
+                'text': self.tr(u'Obj Add Outfall'),
+                'status_tip': self.tr(u'Add an outfall node'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/obj_node_divider.png',
+                'text': self.tr(u'Obj Add Divider'),
+                'status_tip': self.tr(u'Add a flow divider node'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/obj_node_storage.png',
+                'text': self.tr(u'Obj Add Storage'),
+                'status_tip': self.tr(u'Add a storage node'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/obj_node_tank.png',
+                'text': self.tr(u'Obj Add Tank'),
+                'status_tip': self.tr(u'Add a tank node'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/obj_link_conduit.png',
+                'text': self.tr(u'Obj Add Conduit'),
+                'status_tip': self.tr(u'Add a conduit link'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/obj_link_pump.png',
+                'text': self.tr(u'Obj Add Pump'),
+                'status_tip': self.tr(u'Add a pump link'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/obj_link_orifice.png',
+                'text': self.tr(u'Obj Add Orifice'),
+                'status_tip': self.tr(u'Add an orifice link'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/obj_link_weir.png',
+                'text': self.tr(u'Obj Add Weir'),
+                'status_tip': self.tr(u'Add a weir link'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/obj_link_outlet.png',
+                'text': self.tr(u'Obj Add Outlet'),
+                'status_tip': self.tr(u'Add an outlet link'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/obj_link_valve.png',
+                'text': self.tr(u'Obj Add Valve'),
+                'status_tip': self.tr(u'Add a valve link'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            },
+            {
+                'icon_path': ':/icons/obj_maplabel.png',
+                'text': self.tr(u'Obj Add Label'),
+                'status_tip': self.tr(u'Add a map label'),
+                'callback': self.run,
+                'parent': self.iface.mainWindow()
+            }
+        ]
+        for i in toolBar_toolbar:
+            i.update({'add_to_toolbar_name':'swmm_interface_toolbar'})
+            self.add_action(**i)
+
 
         # will be set False in run()
         self.first_start = True
