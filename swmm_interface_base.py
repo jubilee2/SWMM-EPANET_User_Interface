@@ -59,6 +59,7 @@ class SwmmInterfaceBase:
         add_to_menu=True,
         add_to_toolbar=True,
         add_to_toolbar_name = '',
+        add_to_toolbar_separator=None,
         status_tip=None,
         whats_this=None,
         parent=None):
@@ -101,6 +102,12 @@ class SwmmInterfaceBase:
         :rtype: QAction
         """
 
+        if add_to_toolbar_separator is not None:
+            if add_to_toolbar_name in self.toolbar_dict:
+                action = self.toolbar_dict[add_to_toolbar_name].addSeparator()
+                self.actions.append(action)
+            return action
+            
         icon = QIcon(icon_path)
         action = QAction(icon, text, parent)
         action.triggered.connect(callback)
